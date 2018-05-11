@@ -1,10 +1,22 @@
 from sympy import divisors
 
-def divisor_sum(n):
-    return sum(divisors(n)[:-1])
+def tuplecomarer(tuple1, tuple2):
+    if tuple1[0] == tuple2[1] and tuple1[1] ==  tuple2[0]:
+        return True
+    else:
+        return False
+    
 
-reslist = [(n1,n2) for n1 in range(1,300) for n2 in range(100,301) 
-            and n1 == divisor_sum(n2)
-            and n2 == divisor_sum(n1)]
+divisor_sum_list = [(i,sum(divisors(i))-i) for i in range(2,10000)]
 
-print(reslist)
+divisor_sum_list = list(filter(lambda x: x[1]>1 and x[1]<10000, divisor_sum_list))
+
+reslist = []
+for tup1 in divisor_sum_list:
+    for tup2 in divisor_sum_list: 
+        if tup1 != tup2 and tuplecomarer(tup1,tup2):
+            reslist.append(tup1)
+            divisor_sum_list.remove(tup1)
+            divisor_sum_list.remove(tup2)
+
+print(sum(map(lambda x: x[0] + x[1],reslist)))
