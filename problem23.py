@@ -1,8 +1,9 @@
 from sympy import divisors
+import collec
 
-temp = [i for i in range(28123) if sum(divisors(i)) > i]
+temp = [i for i in range(15000) if sum(divisors(i)[:-1]) > i]
 
-temp2 = {i + j for i in range(28123) for j in range(28123) if i+j < 28123}
+
 
 temp3 = {i for i in range(28123)} - temp2
 
